@@ -1,0 +1,44 @@
+<?php
+
+module_load_include('inc', 'news_scroller', 'news_scroller_forms');
+module_load_include('inc', 'news_scroller', 'news_scroller_theme');
+module_load_include('inc', 'news_scroller', 'news_scroller_views');
+module_load_include('inc', 'news_scroller', 'news_scroller_hooks');
+
+function news_scroller_get_news()
+{
+  $custom_view = views_get_view('scroller_custom_news');
+  $custom_view->set_items_per_page(5);
+  $custom_view->execute();
+
+  $feed_view = views_get_view('scroller_feed_news');
+  $feed_view->set_items_per_page(5);
+  $feed_view->execute();
+
+  $items = array();
+  foreach($custom_view->result as $r) {
+    $item = array(
+			'type' => 'node',
+		  'title' => $r->node_title,
+			'target' => '_self',
+			'link' => drupal_get_path_alias('node/' . $r->nid),
+			'sticky' => $r->node_sticky,
+		  'date' => $r->node_created,
+    );
+    $items[] = $item;
+  }
+  foreach($feed_view->result as $r) {
+    $item = array(
+		  'type' => 'feed',
+		  'title' => $r->aggregator_item_title,
+			'target' => '_blank',
+		  'link' => $r->aggregator_item_link,
+			'sticky' => 0,
+		  'date' => $r->aggregator_item_timestamp,
+    );
+    $items[] = $item;
+  }
+
+  return $items;
+}
+

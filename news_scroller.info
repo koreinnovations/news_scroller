@@ -1,0 +1,6 @@
+name = News Scroller
+description = Presents marquee block of scrolling content
+package = Other
+version = 6.x-1.0
+core = 6.x
+dependencies[] = views
