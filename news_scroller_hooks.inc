@@ -2,7 +2,7 @@
 
 function news_scroller_perm() {
   return array(
-    'administer news scroller settings',
+      'administer news scroller settings',
   );
 }
 
@@ -10,18 +10,16 @@ function news_scroller_menu() {
   $items = array();
 
   $items['admin/settings/news_scroller'] = array(
-    'title' => 'News Scroller',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('news_scroller_admin_settings_form'),
-    'access arguments' => array('administer news scroller settings'),
+      'title' => 'News Scroller',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('news_scroller_admin_settings_form'),
+      'access arguments' => array('administer news scroller settings'),
   );
 
   return $items;
 }
 
-
-function news_scroller_theme()
-{
+function news_scroller_theme() {
   $theme = array();
 
   $theme['news_scroller'] = array('arguments' => array());
@@ -38,10 +36,8 @@ function news_scroller_views_default_views() {
   return $views;
 }
 
-
-function news_scroller_block($op = 'list', $delta = 0, $edit = array())
-{
-  switch($op) {
+function news_scroller_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
     case 'list':
       $blocks[0]['info'] = t('News Scroller Marquee');
       return $blocks;
